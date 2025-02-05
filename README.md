@@ -41,6 +41,9 @@ cp .env.example .env
 Start the FastAPI server:
 ```bash
 uvicorn app.main:app --reload
+or
+uvicorn main:app --reload --host 0.0.0.0 --port 8000 --workers 1
+
 ```
 
 The API will be available at `http://localhost:8000`
@@ -166,7 +169,3 @@ app/
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
-
-## License
-
-[Add your license information here]
