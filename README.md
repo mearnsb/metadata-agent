@@ -1,15 +1,34 @@
 # Metadata Agent (Chat API)
 
+> **Disclaimer**: Just a demo, not officially supported product of Collibra
+
 A FastAPI-based chat application that provides persistent chat sessions with AI agents.
+
+![alt text](image-1.png)
 
 ## Features
 
+Multiple Agents:
+- Metadata Agent: Grounding and Search (via Duckdb Engine)
+- Data Quality Agent: Data Quality Operations (via Collibra DQ)
+- Code Executor Agent: Execution of specific Python and SQL Functions
+- Reviewer Agent: Reviews Memory and Context 
+
+API Layer: 
 - Persistent chat sessions across requests
-- Multiple AI model support (Gemini, Cerebras, etc.)
-- Session management
+- Trailing context memomory window
+- Transform and Redaction method 
+- Multiple AI model support (Gemini, OpenAI, etc.)
 - Error handling and logging
 - Health check endpoint
 - CORS support
+
+
+Previous Notebook: https://drive.google.com/file/d/1Sh8WKPM27aUVoTdC-vm0RdQUTXoETpDW/view
+
+![alt text](image.png)
+
+Notebook Walkthrough: https://www.linkedin.com/posts/brianmearns_multi-agents-tools-collibra-productivity-activity-7262880388434255873-V3DU?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADiXgwBS06Bt07oAQt6uGXK9qqXyN47Jxw
 
 ## Installation
 
@@ -121,47 +140,84 @@ response = requests.post(
 }
 ```
 
+## TODO
+- Add Slack Example
+- Add Tool Examples for other platforms
+- Add LLM providers available in notebook (Currently only OpenAI and Gemini)
+- Session handler with JWT
+- Citation formatting
+- Add more agent actions
+- Editable prompts 
+- Add Docker steps for deployment
+
 ## Development
 
 ### Project Structure
 ```
-app/
-├── __init__.py
-├── main.py
-├── api/
+metadata-agent/
+├── app/
 │   ├── __init__.py
-│   └── routes.py
-├── core/
-│   ├── __init__.py
-│   ├── config/
+│   ├── main.py
+│   ├── api/
 │   │   ├── __init__.py
-│   │   └── models.py
-│   ├── config.py
-│   ├── session.py
-│   └── logging.py
-├── services/
-│   ├── __init__.py
-│   └── chat_service.py
-├── agents/
-│   ├── __init__.py
-│   ├── agent_config.py
-│   └── agent_factory.py
-├── chat/
-│   ├── __init__.py
-│   └── chat_manager.py
-├── preprocessing/
-│   ├── __init__.py
-│   ├── assistants.py
-│   └── routine.py
-├── tools/
-│   ├── __init__.py
-│   ├── dq_tools.py
-│   ├── sql_tools.py
-│   └── job_tools.py
-└── models/
-    ├── __init__.py
-    └── models.py
+│   │   └── routes.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── config/
+│   │   │   ├── __init__.py
+│   │   │   ├── environment.py
+│   │   │   └── models.py
+│   │   ├── config.py
+│   │   ├── session.py
+│   │   └── logging.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── chat_service.py
+│   │   └── sql_service.py
+│   ├── agents/
+│   │   ├── __init__.py
+│   │   ├── base_agent.py
+│   │   ├── agent_config.py
+│   │   └── agent_factory.py
+│   ├── chat/
+│   │   ├── __init__.py
+│   │   └── chat_manager.py
+│   ├── tools/
+│   │   ├── __init__.py
+│   │   ├── dq_tools.py
+│   │   ├── sql_tools.py
+│   │   └── job_tools.py
+│   └── models/
+│       ├── __init__.py
+│       └── models.py
+├── data/
+│   ├── connection_schema.csv
+│   ├── actions.csv
+│   └── actions_with_embeddings.csv
+├── notebooks/
+│   ├── notebook_quick_start.ipynb
+│   ├── notebook_create_embeddings.ipynb
+│   ├── notebook_create_csv.ipynb
+│   ├── notebook_tool.ipynb
+│   └── notebook_full_examples.ipynb
+├── requirements.txt
+├── .env.example
+└── README.md
 ```
+
+### Customizing Connection Schema
+
+To customize the connection schema for your environment, you'll need to modify the `data/connection_schema.csv` file. This file contains the mapping of your database connections and their configurations. The easiest way to do this is using the `notebook_create_csv.ipynb` notebook:
+
+1. Open `notebook_create_csv.ipynb` in Jupyter Notebook or JupyterLab
+2. Follow the notebook instructions to:
+   - Define your database connections
+   - Set Collibra DQ API config
+   - Generate the appropriate connection, schema, table csv
+   - Save the configuration to `data/connection_schema.csv`
+
+
+Make sure to update your `.env` file with any necessary credentials referenced in your connection strings.
 
 ### Contributing
 1. Fork the repository
