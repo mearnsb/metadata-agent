@@ -1,0 +1,12 @@
+,action,lookup_values
+0,sql,"in the connection 'xyz', check the 'xyz' schema list first 3 tables w/ 'xyz' in the name"
+1,sql,in the xyz connection in the same schema list tables w/ 'xyz' in the name
+2,sql,run a job for those 3 tables
+3,general,get the latest job results
+4,general,what connections do i have?
+5,general,"list my connections, list all"
+6,general,what connections are available 
+7,sql,what schemas are in that xyz connection?
+8,sql,run a dq job for the tables just mentioned
+9,sql,"whats the xyz connection name?"
+10,sql,"is there an xyz connection name?"
