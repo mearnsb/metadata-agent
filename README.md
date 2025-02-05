@@ -9,20 +9,21 @@ A FastAPI-based chat application that provides persistent chat sessions with AI 
 ## Features
 
 Multiple Agents:
+- Human Agent: Uses proxy mode for automation, modify for human-in-the-loop
 - Metadata Agent: Grounding and Search (via Duckdb Engine)
 - Data Quality Agent: Data Quality Operations (via Collibra DQ)
 - Code Executor Agent: Execution of specific Python and SQL Functions
 - Reviewer Agent: Reviews Memory and Context 
 
 API Layer: 
+- Message history available as chat_history (JSON messages) in response payload
+- Multiple AI model support (Gemini, OpenAI, etc.)
 - Persistent chat sessions across requests
 - Trailing context memomory window
 - Transform and Redaction method 
-- Multiple AI model support (Gemini, OpenAI, etc.)
 - Error handling and logging
 - Health check endpoint
 - CORS support
-
 
 Previous Notebook: https://drive.google.com/file/d/1Sh8WKPM27aUVoTdC-vm0RdQUTXoETpDW/view
 
